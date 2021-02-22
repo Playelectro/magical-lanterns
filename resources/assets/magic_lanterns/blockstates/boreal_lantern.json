@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "hanging=false": { "model": "magic_lanterns:block/boreal_lantern" },
+    "hanging=true": { "model": "magic_lanterns:block/boreal_lantern_hanging" }
+  }
+}
