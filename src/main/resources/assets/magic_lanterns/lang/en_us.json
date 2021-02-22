@@ -1,0 +1,54 @@
+{
+  "itemGroup.magic_lanterns.general" : "Magic Lanterns",
+  "block.magic_lanterns.lantern_maker" : "Lantern Maker",
+  "block.magic_lanterns.life_lantern" : "Life Lantern",
+  "block.magic_lanterns.feral_lantern" : "Feral Lantern",
+  "block.magic_lanterns.love_lantern" : "Love Lantern",
+  "block.magic_lanterns.wailing_lantern": "Wailing Lantern",
+  "block.magic_lanterns.boreal_lantern": "Boreal Lantern",
+  "block.magic_lanterns.briliant_lantern": "Briliant Lantern",
+  "block.magic_lanterns.warding_lantern" : "Warding Lantern",
+  "block.magic_lanterns.containing_lantern" : "Containment Lantern",
+  "block.magic_lanterns.withering_lantern" : "Withering Lantern",
+  "block.magic_lanterns.cloud_lantern" : "Cloud Lantern",
+  "item.magic_lanterns.lantern_book" : "Lantern Codex",
+
+
+  "title.magic_lanterns.page0": "Introduction",
+  "text.magic_lanterns.page0": "Light is a wonderful element that allowed life to flourish when the world was still young. If one could harness such power, many great things could be achieved. After many hours of study, I finally found a way to imbue a normal lantern with different catalysts to manipulate its effects. If my theory is correct an altar will be required.",
+
+  "title.magic_lanterns.page1": "Lantern Maker",
+  "text.magic_lanterns.page1": "The lantern maker can be crafted in a crafting table, to imbue a lantern the altar will require up to 10 catalysts and a lantern block placed on top of it, if the recipe is correct particles will appear!",
+
+  "title.magic_lanterns.page2": "Life Lantern",
+  "text.magic_lanterns.page2": "Effects: Applies regeneration to nearby entities / crops around the lantern grow faster\n\nRecipe: egg + melon (block) + golden_apple + sugar cane + bone meal",
+
+  "title.magic_lanterns.page3": "Feral Lantern",
+  "text.magic_lanterns.page3": "Effects: Lights up a giant area below it by spawning sparks, each feral lantern can spawn a maximum of 100\n\nRecipe: glowstone + jack-o-lantern + fire charge + blaze powder + gold ingot",
+
+  "title.magic_lanterns.page4": "Love Lantern",
+  "text.magic_lanterns.page4": "Effects: Makes nearby mobs fall in love\n\nRecipe: diamond + rabbit foot + golden carrot + beetroot + life lantern + honey bottle",
+
+  "title.magic_lanterns.page5": "Wailing Lantern",
+  "text.magic_lanterns.page5": "Effects: Cries if you get close / screams and applies nausea if you get too close\n\nRecipe: ghast tear + warped roots + flint + pufferfish + ink sac",
+
+  "title.magic_lanterns.page6": "Boreal Lantern",
+  "text.magic_lanterns.page6": "Effects: Slows nearby mobs\n\nRecipe: cobweb + snowball + packed ice + quartz",
+
+  "title.magic_lanterns.page7": "Briliant Lantern",
+  "text.magic_lanterns.page7": "Effects: Turns nearby mobs directly into experience (max health / 2)\n\nRecipe: shulker shell + paper + snowball + phantom membrane",
+
+  "title.magic_lanterns.page8": "Warding Lantern",
+  "text.magic_lanterns.page8": "Effects: Pushes all living entities except players away \n\nRecipe: warped fungus + pufferfish + iron door + obsidian",
+
+  "title.magic_lanterns.page9": "Containment Lantern",
+  "text.magic_lanterns.page9": "Effects: Keeps all living entities except the player confined to an area\n\nRecipe: warding lantern + fishing rod + cobweb + chain",
+
+  "title.magic_lanterns.page10": "Withering Lantern",
+  "text.magic_lanterns.page10": "Effects: Applies the wither effect in a large area around it\n\nRecipe: wither rose + soul sand + firework star+ coal",
+
+  "title.magic_lanterns.page11": "Cloud Lantern",
+  "text.magic_lanterns.page11": "Effects: Applies the slow fall effect in a large area around it\n\nRecipe: phantom membrane + soul torch + snow block + white wool"
+
+
+}

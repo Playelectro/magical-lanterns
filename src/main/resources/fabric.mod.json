@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "magic_lanterns",
+  "version": "1.4.4",
+
+  "name": "Magic Lanterns",
+  "description": "A mod that adds magical lanterns to the game! (It uses libGui by Falkreon & Juuxel)",
+  "authors": [
+    "Ancient_Spirit (Playelectro)"
+  ],
+  "contact": {
+    "homepage": "",
+    "sources": ""
+  },
+
+  "license": "MIT",
+  "icon": "assets/magic_lanterns/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.magic.lanterns.MagicLanternsMod"
+    ],
+    "client": [
+      {
+        "value": "net.magic.lanterns.ClientMod"
+      }
+    ]
+  },
+
+  "depends": {
+    "fabricloader": ">=0.7.4",
+    "fabric": ">=0.29.4+1.16",
+    "minecraft": "1.16.5"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
