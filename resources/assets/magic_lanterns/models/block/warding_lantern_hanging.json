@@ -1,6 +1,0 @@
-{
-	"parent": "minecraft:block/template_hanging_lantern",
-	"textures": {
-		"lantern": "magic_lanterns:blocks/warding_lantern"
-	}
-}
