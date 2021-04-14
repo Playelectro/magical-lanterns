@@ -87,10 +87,11 @@ public class ClientMod implements ClientModInitializer {
 
         ClientPlayNetworking.registerGlobalReceiver(new Identifier(MagicLanternsMod.MODID, "containing_lantern"), (client, handler, buf, responseSender) -> {
             BlockPos pos = buf.readBlockPos();
-            client.world.playSound(pos,SoundEvents.BLOCK_CHAIN_BREAK,SoundCategory.BLOCKS,60,0.6f,true);
+            client.world.playSound(pos,SoundEvents.BLOCK_CHAIN_BREAK,SoundCategory.BLOCKS,1,0.6f,true);
         });
 
         ClientPlayNetworking.registerGlobalReceiver(new Identifier(MagicLanternsMod.MODID, "open_the_damned_book"), (client, handler, buf, responseSender) -> {
+            if(client != null)
             client.openScreen(new BookScreen(new BookGUI()));
         });
     }

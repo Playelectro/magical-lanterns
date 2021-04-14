@@ -15,8 +15,8 @@ public class WardingLanternBlockEntity extends BlockEntity implements Tickable {
     @Override
     public void tick() {
         count++;
-        if(!world.isClient && count>5){
-            world.getOtherEntities(null, new Box(pos.getX()-10,pos.getY()-10,pos.getZ()-10,pos.getX()+10,pos.getY()+10,pos.getZ()+10)).forEach((entity)->{
+        if(!world.isClient && count>10){
+            world.getOtherEntities(null, new Box(pos.getX()-10,pos.getY()-5,pos.getZ()-10,pos.getX()+10,pos.getY()+5,pos.getZ()+10)).forEach((entity)->{
                 if(entity instanceof LivingEntity && !(entity instanceof PlayerEntity)){
                     entity.addVelocity((double)(-pos.getX()+entity.getBlockPos().getX())/10,(double) (-pos.getY()+entity.getBlockPos().getY())/10,(double)(-pos.getZ()+entity.getBlockPos().getZ())/10);
                 }

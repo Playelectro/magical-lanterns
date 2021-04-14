@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "magic_lanterns",
-  "version": "1.4.4",
+  "version": "1.4.6",
 
   "name": "Magic Lanterns",
   "description": "A mod that adds magical lanterns to the game! (It uses libGui by Falkreon & Juuxel)",

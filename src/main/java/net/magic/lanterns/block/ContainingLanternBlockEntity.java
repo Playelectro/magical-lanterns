@@ -6,6 +6,8 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.magic.lanterns.MagicLanternsMod;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.world.ServerWorld;
@@ -23,14 +25,13 @@ public class ContainingLanternBlockEntity extends BlockEntity implements Tickabl
     public void tick() {
         count++;
         if(!world.isClient && count>5){
-            world.getOtherEntities(null, new Box(pos.getX()+0.5-6,pos.getY()+0.5-6,pos.getZ()+0.5-6,pos.getX()+0.5+6,pos.getY()+0.5+6,pos.getZ()+0.5+6)).forEach((entity)->{
-                if(entity instanceof LivingEntity&& !(entity instanceof PlayerEntity)&&!entity.getBlockPos().isWithinDistance(pos,4)){
-                    if(world.getBlockState(pos.up()).isAir()) {
+            world.getOtherEntities(null, new Box(pos.getX()+0.5-10,pos.getY()+0.5-4,pos.getZ()+0.5-10,pos.getX()+0.5+10,pos.getY()+0.5+4,pos.getZ()+0.5+10)).forEach((entity)->{
+                if(entity instanceof LivingEntity && !(entity instanceof PlayerEntity)&&!entity.getBlockPos().isWithinDistance(pos,6)){
+                    if(world.getBlockState(pos.up()).isAir())
                         entity.teleport(pos.getX(), pos.getY() + 1, pos.getZ());
-                    }else
-                    {
+                    else
                         entity.teleport(pos.getX(), pos.getY() -1, pos.getZ());
-                    }
+
                     PacketByteBuf buf = PacketByteBufs.create();
                     buf.writeBlockPos(pos);
                     PlayerLookup.tracking((ServerWorld) world,entity.getBlockPos()).forEach((serverPlayerEntity)->{
