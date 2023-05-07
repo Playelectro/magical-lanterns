@@ -1,9 +1,9 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "magic_lanterns:blocks/polished_basalt_side",
-		"1": "magic_lanterns:blocks/polished_basalt_top",
-		"particle": "magic_lanterns:blocks/polished_basalt_side"
+		"0": "magic_lanterns:block/polished_basalt_side",
+		"1": "magic_lanterns:block/polished_basalt_top",
+		"particle": "magic_lanterns:block/polished_basalt_side"
 	},
 	"elements": [
 		{

@@ -4,10 +4,11 @@ import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.magic.lanterns.MagicLanternsMod;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
@@ -23,18 +24,22 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
-public class LanternMaker extends Block implements BlockEntityProvider {
+public class LanternMaker extends BlockWithEntity {
     boolean action = false;
+
     public LanternMaker() {
-        super(FabricBlockSettings.of(Material.STONE).breakByTool(FabricToolTags.PICKAXES,2).hardness(4f).nonOpaque());
+        super(FabricBlockSettings.of(Material.STONE).requiresTool().hardness(4f).nonOpaque());
     }
 
-    @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockView world) {
-        return new LanternMakerBlockEntity();
+    public BlockEntity createBlockEntity(BlockPos blockPos, BlockState blockState) {
+        return new LanternMakerBlockEntity(blockPos, blockState);
+    }
+
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return checkType(type, MagicLanternBlocks.LANTERN_MAKER_ENTITY, LanternMakerBlockEntity::tick);
     }
 
     @Override
@@ -48,15 +53,15 @@ public class LanternMaker extends Block implements BlockEntityProvider {
         Inventory blockEntity = (Inventory) world.getBlockEntity(pos);
 
         if (!player.getStackInHand(hand).isEmpty()) {
-            for(int i = 0; i < blockEntity.size(); i++) {
+            for (int i = 0; i < blockEntity.size(); i++) {
                 if (blockEntity.getStack(i).isEmpty() && !action) {
                     blockEntity.setStack(i, player.getStackInHand(hand).copy());
                     player.getStackInHand(hand).setCount(0);
                     action = true;
                 }
             }
-        }else if (player.isSneaking()){
-            for(int i = blockEntity.size()-1; i > -1; i--) {
+        } else if (player.isSneaking()) {
+            for (int i = blockEntity.size() - 1; i > -1; i--) {
                 if (!blockEntity.getStack(i).isEmpty()&& !action) {
                     player.setStackInHand(hand, blockEntity.getStack(i).copy());
                     blockEntity.setStack(i,ItemStack.EMPTY);
@@ -68,20 +73,25 @@ public class LanternMaker extends Block implements BlockEntityProvider {
 
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeBlockPos(pos);
-        for(int i = 0; i <blockEntity.size(); ++i) {
+        for (int i = 0; i <blockEntity.size(); ++i) {
             buf.writeItemStack(blockEntity.getStack(i));
         }
         PlayerLookup.tracking((ServerWorld) world, pos).forEach((serverPlayerEntity) -> {
-            ServerPlayNetworking.send(serverPlayerEntity, new Identifier(MagicLanternsMod.MODID, "lantern_maker_items"), buf);
+            ServerPlayNetworking.send(serverPlayerEntity, new Identifier(MagicLanternsMod.MOD_ID, "lantern_maker_items"), buf);
         });
         return ActionResult.FAIL;
     }
 
-
     @Override
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         super.onBreak(world, pos, state, player);
-        if(world.isClient) return;
-        ItemScatterer.spawn(world,pos,(Inventory) world.getBlockEntity(pos));
+        if (!world.isClient && world.getBlockEntity(pos) instanceof Inventory inventory) {
+            ItemScatterer.spawn(world, pos, inventory);
+        }
+    }
+
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
     }
 }

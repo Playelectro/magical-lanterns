@@ -1,8 +1,8 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "magic_lanterns:blocks/feral_lantern",
-		"particle": "magic_lanterns:blocks/feral_lantern"
+		"0": "magic_lanterns:block/feral_lantern",
+		"particle": "magic_lanterns:block/feral_lantern"
 	},
 	"elements": [
 		{

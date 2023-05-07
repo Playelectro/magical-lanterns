@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "magic_lanterns:items/feral_lantern"
+    "layer0": "magic_lanterns:item/feral_lantern"
   }
 }

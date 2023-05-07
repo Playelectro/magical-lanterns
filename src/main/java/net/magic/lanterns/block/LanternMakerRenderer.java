@@ -1,42 +1,51 @@
 package net.magic.lanterns.block;
 
-import net.minecraft.client.MinecraftClient;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.WorldRenderer;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.model.json.ModelTransformation;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
+import net.minecraft.client.render.item.ItemRenderer;
+import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.RotationAxis;
+import net.minecraft.world.World;
 
-public class LanternMakerRenderer extends BlockEntityRenderer<LanternMakerBlockEntity> {
+@Environment(EnvType.CLIENT)
+public class LanternMakerRenderer implements BlockEntityRenderer<LanternMakerBlockEntity> {
+    private final ItemRenderer itemRenderer;
 
-    private DefaultedList<ItemStack> items = DefaultedList.ofSize(10,ItemStack.EMPTY);
-    public LanternMakerRenderer(BlockEntityRenderDispatcher dispatcher) {
-        super(dispatcher);
+    public LanternMakerRenderer(BlockEntityRendererFactory.Context ctx) {
+        this.itemRenderer = ctx.getItemRenderer();
     }
 
     @Override
     public void render(LanternMakerBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        items = entity.getItems();
-        int i = 10;
-        int lightAbove = WorldRenderer.getLightmapCoordinates(entity.getWorld(), entity.getPos().up(255));
-        for(ItemStack item : items) {
-            matrices.push();
-            int x = (i%2==0) ? -i : i;
-            double offsety = Math.sin((entity.getWorld().getTime()+tickDelta)/x);
-            double offsetx = Math.sin((entity.getWorld().getTime() + tickDelta) / i)+0.5;
-            double offsetz = Math.cos((entity.getWorld().getTime() + tickDelta) / i) + 0.5;
-            matrices.translate( offsetx, 1.25+offsety, offsetz);
-            matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion((entity.getWorld().getTime() + tickDelta) *i));
-            matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion((entity.getWorld().getTime() + tickDelta)* i));
-            matrices.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion((entity.getWorld().getTime() + tickDelta)* i));
-            MinecraftClient.getInstance().getItemRenderer().renderItem(item, ModelTransformation.Mode.GROUND, lightAbove, overlay, matrices, vertexConsumers);
+        DefaultedList<ItemStack> items = entity.getItems();
+        World world = entity.getWorld();
+        if (world == null) return;
+        long time = world.getTime();
+        int lightAbove = WorldRenderer.getLightmapCoordinates(world, entity.getPos().up(255));
 
+        int i = 10;
+        for (ItemStack item : items) {
+            int x = ((i & 1) == 0) ? -i : i;
+            double offsetY = Math.sin((time + tickDelta) / x);
+            double offsetX = Math.sin((time + tickDelta) / i) + 0.5;
+            double offsetZ = Math.cos((time + tickDelta) / i) + 0.5;
+
+            matrices.push();
+            matrices.translate(offsetX, 1.25 + offsetY, offsetZ);
+            matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees((time + tickDelta) * i));
+            matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees((time + tickDelta) * i));
+            matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees((time + tickDelta) * i));
+            itemRenderer.renderItem(item, ModelTransformationMode.GROUND, lightAbove, overlay, matrices, vertexConsumers, world, 0);
             matrices.pop();
-            i--;
+
+            --i;
         }
     }
 }
