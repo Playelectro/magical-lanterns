@@ -65,7 +65,6 @@ public class MagicLanternsMod implements ModInitializer {
 				.entries((context, entries) -> {
 					entries.add(MagicalLanternsItems.LANTERN_CODEX);
 					entries.add(MagicLanternBlocks.LANTERN_MAKER);
-					entries.add(MagicLanternBlocks.SPARK);
 
 					entries.add(MagicLanternBlocks.BOREAL_LANTERN);
 					entries.add(MagicLanternBlocks.BRILLIANT_LANTERN);
