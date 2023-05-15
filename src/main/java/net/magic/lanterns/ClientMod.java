@@ -16,10 +16,9 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class ClientMod implements ClientModInitializer {
-    Random random = new Random();
-
     @Override
     public void onInitializeClient() {
         BlockEntityRendererFactories.register(MagicLanternBlocks.LANTERN_MAKER_ENTITY, LanternMakerRenderer::new);
@@ -52,6 +51,7 @@ public class ClientMod implements ClientModInitializer {
 
         ClientPlayNetworking.registerGlobalReceiver(new Identifier(MagicLanternsMod.MOD_ID, "lantern_craft"), (client, handler, buf, responseSender) -> {
             if (client.world == null) return;
+            Random random = ThreadLocalRandom.current();
             BlockPos pos = buf.readBlockPos();
             client.world.playSound(pos.getY(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.BLOCKS,1,1,true);
             for (int i =0; i < 20; ++i) {
@@ -61,6 +61,7 @@ public class ClientMod implements ClientModInitializer {
 
         ClientPlayNetworking.registerGlobalReceiver(new Identifier(MagicLanternsMod.MOD_ID, "life_lantern_grow"), (client, handler, buf, responseSender) -> {
             if (client.world == null) return;
+            Random random = ThreadLocalRandom.current();
             BlockPos pos = buf.readBlockPos();
             for (int i =0; i < 20; ++i) {
                 client.world.addParticle(ParticleTypes.COMPOSTER, pos.getX() + random.nextDouble(), pos.getY() + random.nextDouble(), pos.getZ() + random.nextDouble(), 0, 0, 0);
@@ -69,6 +70,7 @@ public class ClientMod implements ClientModInitializer {
 
         ClientPlayNetworking.registerGlobalReceiver(new Identifier(MagicLanternsMod.MOD_ID, "love_lantern_heart"), (client, handler, buf, responseSender) -> {
             if (client.world == null) return;
+            Random random = ThreadLocalRandom.current();
             BlockPos pos = buf.readBlockPos();
             for (int i =0; i < 10; ++i) {
                 client.world.addParticle(ParticleTypes.HEART, pos.getX() + random.nextDouble() * 1.5, pos.getY() + random.nextDouble() * 2, pos.getZ() - 0.7 + random.nextDouble() * 1.5, 0, 0, 0);
@@ -88,6 +90,7 @@ public class ClientMod implements ClientModInitializer {
 
         ClientPlayNetworking.registerGlobalReceiver(new Identifier(MagicLanternsMod.MOD_ID, "boreal_lantern"), (client, handler, buf, responseSender) -> {
             if (client.world == null) return;
+            Random random = ThreadLocalRandom.current();
             BlockPos pos = buf.readBlockPos();
             BlockPos pos1 = buf.readBlockPos();
             for(int i =0; i < 2; ++i) {
