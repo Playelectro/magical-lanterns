@@ -1,27 +1,29 @@
 package net.magic.lanterns.block;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Tickable;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
+import net.minecraft.world.World;
 
-public class WardingLanternBlockEntity extends BlockEntity implements Tickable {
+public class WardingLanternBlockEntity extends BlockEntity {
     int count = 0;
-    public WardingLanternBlockEntity() {
-        super(MagicLanternBlocks.WARDING_LANTERN_ENTITY);
+
+    public WardingLanternBlockEntity(BlockPos blockPos, BlockState blockState) {
+        super(MagicLanternBlocks.WARDING_LANTERN_ENTITY, blockPos, blockState);
     }
 
-    @Override
-    public void tick() {
-        count++;
-        if(!world.isClient && count>10){
-            world.getOtherEntities(null, new Box(pos.getX()-10,pos.getY()-5,pos.getZ()-10,pos.getX()+10,pos.getY()+5,pos.getZ()+10)).forEach((entity)->{
-                if(entity instanceof LivingEntity && !(entity instanceof PlayerEntity)){
-                    entity.addVelocity((double)(-pos.getX()+entity.getBlockPos().getX())/10,(double) (-pos.getY()+entity.getBlockPos().getY())/10,(double)(-pos.getZ()+entity.getBlockPos().getZ())/10);
+    public static void tick(World world, BlockPos pos, BlockState state, WardingLanternBlockEntity entity) {
+        ++entity.count;
+        if (!world.isClient && entity.count > 10) {
+            world.getOtherEntities(null, new Box(pos.getX() - 10, pos.getY() - 5, pos.getZ() - 10, pos.getX() + 10, pos.getY() + 5, pos.getZ() + 10)).forEach((otherEntity) -> {
+                if (otherEntity instanceof LivingEntity && !(otherEntity instanceof PlayerEntity)) {
+                    otherEntity.addVelocity((double) (-pos.getX() + otherEntity.getBlockPos().getX()) / 10, (double) (-pos.getY() + otherEntity.getBlockPos().getY()) / 10, (double) (-pos.getZ() + otherEntity.getBlockPos().getZ()) / 10);
                 }
             });
-            count=0;
+            entity.count = 0;
         }
     }
 }

@@ -1,21 +1,26 @@
 package net.magic.lanterns.block;
 
-
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.world.BlockView;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
-public class WailingLantern extends MagicLanternBase implements BlockEntityProvider {
+public class WailingLantern extends MagicLanternBase {
     public WailingLantern() {
-        super(FabricBlockSettings.of(Material.METAL).hardness(4f).sounds(BlockSoundGroup.LANTERN).nonOpaque().breakByTool(FabricToolTags.PICKAXES,2).lightLevel(8));
+        super(FabricBlockSettings.of(Material.METAL).requiresTool().hardness(4f).lightLevel(8).nonOpaque().sounds(BlockSoundGroup.LANTERN));
     }
-    @Nullable
+
     @Override
-    public BlockEntity createBlockEntity(BlockView world) {
-        return new WailingLanternBlockEntity();
+    public BlockEntity createBlockEntity(BlockPos blockPos, BlockState blockState) {
+        return new WailingLanternBlockEntity(blockPos, blockState);
+    }
+
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return checkType(type, MagicLanternBlocks.WAILING_LANTERN_ENTITY, WailingLanternBlockEntity::tick);
     }
 }

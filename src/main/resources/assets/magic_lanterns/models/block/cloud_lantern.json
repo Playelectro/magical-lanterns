@@ -1,6 +1,6 @@
 {
 	"parent": "minecraft:block/template_lantern",
 	"textures": {
-		"lantern": "magic_lanterns:blocks/cloud_lantern"
+		"lantern": "magic_lanterns:block/cloud_lantern"
 	}
 }

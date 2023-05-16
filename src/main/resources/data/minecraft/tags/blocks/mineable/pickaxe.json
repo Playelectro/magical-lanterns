@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "magic_lanterns:boreal_lantern",
+    "magic_lanterns:brilliant_lantern",
+    "magic_lanterns:cloud_lantern",
+    "magic_lanterns:containing_lantern",
+    "magic_lanterns:feral_lantern",
+    "magic_lanterns:lantern_maker",
+    "magic_lanterns:life_lantern",
+    "magic_lanterns:love_lantern",
+    "magic_lanterns:wailing_lantern",
+    "magic_lanterns:warding_lantern",
+    "magic_lanterns:withering_lantern"
+  ]
+}

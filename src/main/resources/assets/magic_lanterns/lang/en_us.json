@@ -6,7 +6,7 @@
   "block.magic_lanterns.love_lantern" : "Love Lantern",
   "block.magic_lanterns.wailing_lantern": "Wailing Lantern",
   "block.magic_lanterns.boreal_lantern": "Boreal Lantern",
-  "block.magic_lanterns.briliant_lantern": "Briliant Lantern",
+  "block.magic_lanterns.brilliant_lantern": "Brilliant Lantern",
   "block.magic_lanterns.warding_lantern" : "Warding Lantern",
   "block.magic_lanterns.containing_lantern" : "Containment Lantern",
   "block.magic_lanterns.withering_lantern" : "Withering Lantern",
@@ -35,7 +35,7 @@
   "title.magic_lanterns.page6": "Boreal Lantern",
   "text.magic_lanterns.page6": "Effects: Slows nearby mobs\n\nRecipe: cobweb + snowball + packed ice + quartz",
 
-  "title.magic_lanterns.page7": "Briliant Lantern",
+  "title.magic_lanterns.page7": "Brilliant Lantern",
   "text.magic_lanterns.page7": "Effects: Turns nearby mobs directly into experience (max health / 2)\n\nRecipe: shulker shell + paper + snowball + phantom membrane",
 
   "title.magic_lanterns.page8": "Warding Lantern",

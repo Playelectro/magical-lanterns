@@ -2,41 +2,41 @@ package net.magic.lanterns.client;
 
 import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription;
 import io.github.cottonmc.cotton.gui.widget.*;
-import net.minecraft.client.resource.language.I18n;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.TranslatableText;
+import io.github.cottonmc.cotton.gui.widget.data.Insets;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class BookGUI extends LightweightGuiDescription {
-    public BookGUI(){
+    public BookGUI() {
         AtomicInteger page = new AtomicInteger(0);
         BookPage root = new BookPage();
-        root.setSize(180,180);
         setRootPanel(root);
+        root.setSize(180,180);
+        root.setInsets(Insets.ROOT_PANEL);
 
-        WLabel pageNumber = new WLabel(String.valueOf(page.get()));
+        WLabel pageNumber = new WLabel(Text.of(String.valueOf(page.get())));
 
-        WLabel pageTitle = new WLabel(I18n.translate("title.magic_lanterns.page"+page.get()));
+        WLabel pageTitle = new WLabel(Text.translatable("title.magic_lanterns.page" + page.get()));
 
-        WText pageText = new WText(new TranslatableText("text.magic_lanterns.page"+page.get()));
+        WText pageText = new WText(Text.translatable("text.magic_lanterns.page" + page.get()));
 
-        //Navigation
-        WButton nextPage= new WButton(new LiteralText("->"));
-        nextPage.setOnClick(()->{
-            page.set(MathHelper.clamp(page.incrementAndGet(),0,11));
-            pageText.setText(new TranslatableText("text.magic_lanterns.page"+page.get()));
-            pageNumber.setText(new TranslatableText(String.valueOf(page)));
-            pageTitle.setText(new TranslatableText("title.magic_lanterns.page"+page.get()));
+        // Navigation
+        WButton nextPage = new WButton(Text.of("->"));
+        nextPage.setOnClick(() -> {
+            page.set(MathHelper.clamp(page.incrementAndGet(), 0, 11));
+            pageText.setText(Text.translatable("text.magic_lanterns.page" + page.get()));
+            pageNumber.setText(Text.translatable(String.valueOf(page)));
+            pageTitle.setText(Text.translatable("title.magic_lanterns.page" + page.get()));
         });
 
-        WButton prevPage= new WButton(new LiteralText("<-"));
-        prevPage.setOnClick(()->{
-            page.set(MathHelper.clamp(page.decrementAndGet(),0,11));
-            pageText.setText(new TranslatableText("text.magic_lanterns.page"+page.get()));
-            pageNumber.setText(new TranslatableText(String.valueOf(page)));
-            pageTitle.setText(new TranslatableText("title.magic_lanterns.page"+page.get()));
+        WButton prevPage = new WButton(Text.of("<-"));
+        prevPage.setOnClick(() -> {
+            page.set(MathHelper.clamp(page.decrementAndGet(), 0, 11));
+            pageText.setText(Text.translatable("text.magic_lanterns.page" + page.get()));
+            pageNumber.setText(Text.translatable(String.valueOf(page)));
+            pageTitle.setText(Text.translatable("title.magic_lanterns.page" + page.get()));
 
         });
 
